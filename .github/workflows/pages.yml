@@ -45,7 +45,7 @@ jobs:
       - run: npm run build
         working-directory: frontend
         env:
-          VITE_DEMO: '1'
+          VITE_LOCAL: '1'
           VITE_IMG_BASE: ${{ env.DATASET }}/images/
           VITE_GIF_BASE: ${{ env.DATASET }}/videos/
       - uses: actions/configure-pages@v6

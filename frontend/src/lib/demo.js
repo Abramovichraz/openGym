@@ -10,5 +10,8 @@
 // time, so the demo-only UI folds away and the seed generator — imported dynamically — never
 // lands in a self-hosted bundle.
 export const DEMO = import.meta.env.VITE_DEMO === '1'
+// Personal static build (VITE_LOCAL=1): like the demo — no backend, guest mode, data in this
+// browser — but starts empty. For hosting on static HTTPS (e.g. Pages) and adding to an iPhone home screen.
+export const LOCAL_ONLY = import.meta.env.VITE_LOCAL === '1'
 export const DEMO_SEEDED = 'gym_demo_seeded_v1'
 export const REPO = 'https://gitlab.com/DuarteSantos8/opengym'

@@ -3,7 +3,7 @@ import { api, setRemoteAuth } from '../lib/api.js'
 import { localTZ } from '../lib/format.js'
 import { t } from '../lib/i18n.js'
 import { registerCustom } from '../lib/exercises.js'
-import { DEMO, DEMO_SEEDED } from '../lib/demo.js'
+import { DEMO, DEMO_SEEDED, LOCAL_ONLY } from '../lib/demo.js'
 import { rememberDefaultLang } from '../lib/default-lang.js'
 import { guestAllowed } from '../lib/guest.js'
 import { MOBILE, initReminderSync, nativeLoad, nativeSave, onAppActive, readJsonFile, syncReminder, writeAutoBackup, writeJsonFile } from '../lib/mobile.js'
@@ -1461,8 +1461,8 @@ export const useStore = create((set, get) => {
         return
       }
       // Demo build (GitHub Pages): no backend at all — seed once, stay in guest mode.
-      if (DEMO) {
-        if (!localStorage.getItem(DEMO_SEEDED)) {
+      if (DEMO || LOCAL_ONLY) {
+        if (DEMO && !localStorage.getItem(DEMO_SEEDED)) {
           localStorage.setItem(DEMO_SEEDED, '1')
           await get().resetDemo()
         }
