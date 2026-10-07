@@ -26,6 +26,14 @@ import { checkForUpdate, downloadAndInstall } from '../lib/update.js'
 import { forgetCoach } from '../lib/coach-api.js'
 import { starterPlanSheet, confirmSheet, importFromApp, importFromHevy, equipmentProfileSheet, plateInventorySheet, menuSheet } from '../sheets.jsx'
 import Icon from '../components/Icon.jsx'
+
+// Picking a style also picks the accent it was drawn around; the swatches below still override it.
+const SKIN_OPTS = [
+  { k: 'classic', name: 'Classic', sub: 'The original' },
+  { k: 'aurora', name: 'Aurora', sub: 'Glass & glow', acc: 'violet' },
+  { k: 'carbon', name: 'Carbon', sub: 'Bold & sharp', acc: 'orange' },
+  { k: 'luxe', name: 'Luxe', sub: 'Gold & serif', acc: 'gold' },
+]
 import { ServerSyncSection, KeptChangesRows, leaveServer, connectServer, passkeySignIn } from '../components/ServerSync.jsx'
 import { passwordOn, PasswordRow, openPasswordSignIn, openPasswordRegister } from '../components/PasswordAuth.jsx'
 import { usePasskeys, PasskeysRow, DeviceLinkRow } from '../components/Passkeys.jsx'
@@ -519,6 +527,27 @@ export default function Settings() {
           ]}
           value={S.theme || 'dark'}
           onChange={v => update(s => { s.theme = v })}
+        />
+      </Row>
+      <div className="lrow" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 12, paddingTop: 13, paddingBottom: 14 }}>
+        <span className="lrow-t">{t('Style')}</span>
+        <div className="skin-grid">
+          {SKIN_OPTS.map(o => (
+            <button key={o.k} className={'skin-tile skin-' + o.k + ((S.skin || 'classic') === o.k ? ' on' : '')}
+              onClick={() => update(s => { s.skin = o.k; if (o.acc) s.accent = o.acc; if (o.acc) setRestAccent(o.acc) })}>
+              <span className="skin-prev"><i /><i /><i /></span>
+              <span className="skin-name">{t(o.name)}</span>
+              <span className="skin-sub">{t(o.sub)}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <Row icon="bolt" iconTint="var(--orange)" title={t('Animations')}>
+        <Segmented
+          className="seg-inline"
+          options={[{ value: 'standard', label: t('Standard') }, { value: 'premium', label: t('Premium') }]}
+          value={S.motion === 'premium' ? 'premium' : 'standard'}
+          onChange={v => update(s => { s.motion = v })}
         />
       </Row>
       {/* Purely how the muscle map is drawn — nothing else in the app reads this. */}

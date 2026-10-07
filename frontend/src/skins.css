@@ -1,0 +1,251 @@
+/* ============================================================================
+   Skins (Settings → Style) and premium motion (Settings → Animations).
+   :root[data-skin] and :root[data-motion] are set by App.jsx applyPrefs().
+   Colour tokens are overridden for the dark theme only; light mode keeps the
+   classic palette and takes just the skin's shape and type.
+   ========================================================================== */
+
+/* ------------------------------------------------------- style picker -- */
+.skin-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.skin-tile{
+  display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;
+  padding:10px;border-radius:14px;background:var(--surface-2);
+  border:1.5px solid transparent;transition:transform var(--fast) var(--ease),border-color var(--fast);
+}
+.skin-tile:active{transform:scale(.97)}
+.skin-tile.on{border-color:var(--acc)}
+.skin-prev{
+  width:100%;height:58px;border-radius:9px;margin-bottom:6px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:7px;
+}
+.skin-prev i{display:block;height:9px;border-radius:4px}
+.skin-prev i:nth-child(1){width:55%}
+.skin-prev i:nth-child(2){width:80%}
+.skin-prev i:nth-child(3){width:35%}
+.skin-name{font-size:15px;font-weight:600}
+.skin-sub{font-size:12px;color:var(--label-2)}
+.skin-classic .skin-prev{background:#000}
+.skin-classic .skin-prev i{background:#1c1c1e}
+.skin-classic .skin-prev i:nth-child(3){background:#30d158}
+.skin-aurora .skin-prev{background:radial-gradient(circle at 20% 10%,#7c3aed 0,transparent 55%),radial-gradient(circle at 90% 90%,#06b6d4 0,transparent 55%),#0b0820}
+.skin-aurora .skin-prev i{background:rgba(255,255,255,.14);border:.5px solid rgba(255,255,255,.25)}
+.skin-aurora .skin-prev i:nth-child(3){background:#bf5af2}
+.skin-carbon .skin-prev{background:repeating-linear-gradient(135deg,#0a0a0a 0 6px,#111 6px 12px)}
+.skin-carbon .skin-prev i{background:#1a1a1a;border-radius:2px;border-inline-start:3px solid #ff6a00}
+.skin-carbon .skin-prev i:nth-child(3){background:#ff6a00}
+.skin-luxe .skin-prev{background:linear-gradient(160deg,#1a1510,#0b0907)}
+.skin-luxe .skin-prev i{background:#1d1813;border:.5px solid rgba(212,175,55,.45)}
+.skin-luxe .skin-prev i:nth-child(3){background:linear-gradient(90deg,#b8862b,#f3d27a)}
+
+/* =================================================================== AURORA
+   Frosted glass over a slowly drifting aurora. */
+:root[data-skin="aurora"]{--r-card:22px;--r:16px;--r-lg:20px;--r-xl:28px}
+:root[data-skin="aurora"][data-theme="dark"]{
+  --bg:#07051a;
+  --bg-el:rgba(22,16,52,.82);
+  --surface:rgba(255,255,255,.07);
+  --surface-2:rgba(255,255,255,.12);
+  --surface-3:rgba(255,255,255,.18);
+  --sep:rgba(255,255,255,.12);
+  --sep-op:rgba(255,255,255,.14);
+  --label-2:rgba(225,220,255,.62);
+}
+:root[data-skin="aurora"][data-theme="dark"] body{
+  background:
+    radial-gradient(60vmax 60vmax at 10% -10%,rgba(124,58,237,.38),transparent 60%),
+    radial-gradient(55vmax 55vmax at 110% 40%,rgba(6,182,212,.22),transparent 60%),
+    radial-gradient(50vmax 50vmax at 30% 120%,rgba(236,72,153,.20),transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+}
+:root[data-skin="aurora"][data-theme="dark"] .card,
+:root[data-skin="aurora"][data-theme="dark"] .sect-b{
+  border:.5px solid rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 10px 30px -12px rgba(0,0,0,.6);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+}
+:root[data-skin="aurora"] .btn.primary{
+  background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 55%,#06b6d4));
+  box-shadow:0 8px 24px -8px color-mix(in srgb,var(--acc) 70%,transparent);
+}
+:root[data-skin="aurora"][data-theme="dark"] #tabbar{
+  background:rgba(14,10,36,.72);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  border-top:.5px solid rgba(255,255,255,.12);
+}
+:root[data-skin="aurora"] #tabbar button.start .cir{
+  background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#06b6d4));
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 18%,transparent),0 10px 28px -6px color-mix(in srgb,var(--acc) 75%,transparent);
+}
+:root[data-skin="aurora"] .hdr h1{
+  background:linear-gradient(100deg,#fff 20%,color-mix(in srgb,var(--acc) 60%,#fff));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+:root[data-skin="aurora"][data-theme="light"] .hdr h1{background:none;color:var(--label)}
+
+/* =================================================================== CARBON
+   Athletic: black, hard edges, heavy italic uppercase headlines. */
+:root[data-skin="carbon"]{--r-card:6px;--r:6px;--r-sm:4px;--r-lg:8px;--r-xl:12px}
+:root[data-skin="carbon"][data-theme="dark"]{
+  --bg:#050505;
+  --bg-el:#0c0c0c;
+  --surface:#121212;
+  --surface-2:#1d1d1d;
+  --surface-3:#2a2a2a;
+  --sep:rgba(255,255,255,.08);
+}
+:root[data-skin="carbon"] .hdr h1{
+  text-transform:uppercase;font-style:italic;font-weight:900;letter-spacing:-.01em;
+}
+:root[data-skin="carbon"] .hdr h1::after{
+  content:'';display:block;width:42px;height:4px;margin-top:8px;background:var(--acc);
+  transform:skewX(-20deg);
+}
+:root[data-skin="carbon"] .card{border-inline-start:3px solid var(--acc-line)}
+:root[data-skin="carbon"][data-theme="dark"] .card,
+:root[data-skin="carbon"][data-theme="dark"] .sect-b{
+  background:linear-gradient(180deg,#151515,#0f0f0f);
+  border-top:.5px solid rgba(255,255,255,.06);
+}
+:root[data-skin="carbon"] .card h2,
+:root[data-skin="carbon"] .sect-t,
+:root[data-skin="carbon"] h4.sec{
+  text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700;
+}
+:root[data-skin="carbon"] .btn{text-transform:uppercase;letter-spacing:.06em;font-weight:800;font-size:15px}
+:root[data-skin="carbon"] .btn.sm,:root[data-skin="carbon"] .btn.xs,
+:root[data-skin="carbon"] .btn.ghost,:root[data-skin="carbon"] .btn.plain{text-transform:none;letter-spacing:0;font-weight:600}
+:root[data-skin="carbon"] .btn.primary{box-shadow:0 0 0 1px color-mix(in srgb,var(--acc) 40%,transparent),0 6px 20px -8px var(--acc)}
+:root[data-skin="carbon"] .card .big{font-weight:900;font-style:italic}
+:root[data-skin="carbon"] #tabbar button.start .cir{border-radius:14px;transform:rotate(45deg)}
+:root[data-skin="carbon"] #tabbar button.start .cir .icn{transform:rotate(-45deg)}
+:root[data-skin="carbon"] #tabbar button.start:active .cir{transform:rotate(45deg) scale(.93)}
+:root[data-skin="carbon"] #tabbar button{text-transform:uppercase;letter-spacing:.06em;font-size:9px;font-weight:700}
+
+/* ===================================================================== LUXE
+   Warm charcoal, gold hairlines, serif display type (New York on iOS). */
+:root[data-skin="luxe"]{--r-card:18px;--r:14px;--r-lg:18px;--r-xl:26px}
+:root[data-skin="luxe"][data-theme="dark"]{
+  --bg:#0b0907;
+  --bg-el:#14110d;
+  --surface:#17130f;
+  --surface-2:#221c16;
+  --surface-3:#2e261e;
+  --label:#f5ecd9;
+  --label-2:rgba(245,236,217,.58);
+  --label-3:rgba(245,236,217,.32);
+  --sep:rgba(212,175,55,.16);
+  --sep-op:rgba(212,175,55,.2);
+}
+:root[data-skin="luxe"][data-theme="dark"] body{
+  background:radial-gradient(80vmax 50vmax at 50% -10%,rgba(212,175,55,.10),transparent 60%),var(--bg);
+  background-attachment:fixed;
+}
+:root[data-skin="luxe"] .hdr h1,
+:root[data-skin="luxe"] .card .big,
+:root[data-skin="luxe"] .sheet h3{
+  font-family:ui-serif,'New York',Georgia,'Times New Roman',serif;font-weight:600;letter-spacing:-.01em;
+}
+:root[data-skin="luxe"][data-theme="dark"] .card,
+:root[data-skin="luxe"][data-theme="dark"] .sect-b{
+  background:linear-gradient(165deg,#1c1712,#14100c);
+  border:.5px solid rgba(212,175,55,.22);
+  box-shadow:inset 0 1px 0 rgba(255,236,190,.05),0 14px 34px -16px rgba(0,0,0,.8);
+}
+:root[data-skin="luxe"] .btn.primary{
+  background:linear-gradient(100deg,#a8761f,#e9c46a 45%,#f6dd94 55%,#b8862b);
+  color:#1a1206;box-shadow:0 8px 22px -10px rgba(233,196,106,.6);
+}
+:root[data-skin="luxe"] .card h2,
+:root[data-skin="luxe"] .sect-t,
+:root[data-skin="luxe"] h4.sec{text-transform:uppercase;letter-spacing:.16em;font-size:11px}
+:root[data-skin="luxe"][data-theme="dark"] #tabbar{background:rgba(16,13,10,.9);border-top-color:rgba(212,175,55,.2)}
+:root[data-skin="luxe"] #tabbar button.start .cir{
+  background:linear-gradient(135deg,#b8862b,#f3d27a);color:#1a1206;
+  box-shadow:0 0 0 1px rgba(243,210,122,.5),0 8px 24px -6px rgba(233,196,106,.55);
+}
+
+/* ========================================================== PREMIUM MOTION
+   Spring curves, staggered entrances, depth on page change. Off when the
+   OS asks for reduced motion. */
+@media (prefers-reduced-motion:no-preference){
+  :root[data-motion="premium"]{
+    --spring:cubic-bezier(.34,1.56,.64,1);
+    --ease:cubic-bezier(.22,1,.36,1);
+    --fast:180ms;--med:420ms;
+  }
+
+  /* page change: rise out of a soft blur */
+  @keyframes pm-view{
+    from{opacity:0;transform:translateY(18px) scale(.985);filter:blur(6px)}
+    to{opacity:1;transform:none;filter:none}
+  }
+  :root[data-motion="premium"] #app.vfade{animation:pm-view .5s var(--ease)}
+
+  /* cards and list groups cascade in */
+  @keyframes pm-rise{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+  :root[data-motion="premium"] #app>* > .card,
+  :root[data-motion="premium"] #app>* > .sect,
+  :root[data-motion="premium"] #app .card,
+  :root[data-motion="premium"] #app .sect{animation:pm-rise .6s var(--ease) both}
+  :root[data-motion="premium"] #app :is(.card,.sect):nth-of-type(2){animation-delay:50ms}
+  :root[data-motion="premium"] #app :is(.card,.sect):nth-of-type(3){animation-delay:100ms}
+  :root[data-motion="premium"] #app :is(.card,.sect):nth-of-type(4){animation-delay:150ms}
+  :root[data-motion="premium"] #app :is(.card,.sect):nth-of-type(5){animation-delay:200ms}
+  :root[data-motion="premium"] #app :is(.card,.sect):nth-of-type(n+6){animation-delay:250ms}
+  /* list rows inside the library etc. */
+  @keyframes pm-slide{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+  :root[data-motion="premium"] #app .item:nth-child(-n+12){animation:pm-slide .45s var(--ease) both}
+  :root[data-motion="premium"] #app .item:nth-child(2){animation-delay:30ms}
+  :root[data-motion="premium"] #app .item:nth-child(3){animation-delay:60ms}
+  :root[data-motion="premium"] #app .item:nth-child(4){animation-delay:90ms}
+  :root[data-motion="premium"] #app .item:nth-child(5){animation-delay:120ms}
+  :root[data-motion="premium"] #app .item:nth-child(6){animation-delay:150ms}
+  :root[data-motion="premium"] #app .item:nth-child(n+7){animation-delay:180ms}
+
+  /* presses squash and spring back */
+  :root[data-motion="premium"] :is(.btn,.iconbtn,.chip,.skin-tile,.lrow.tap,.item){
+    transition:transform .45s var(--spring),background var(--fast),opacity var(--fast),border-color var(--fast);
+  }
+  :root[data-motion="premium"] :is(.btn,.chip,.skin-tile,.item):active{transform:scale(.95);transition-duration:.1s}
+  :root[data-motion="premium"] .iconbtn:active{transform:scale(.86);transition-duration:.1s}
+
+  /* primary buttons: a light sheen sweeps across now and then */
+  :root[data-motion="premium"] .btn.primary{position:relative;overflow:hidden;isolation:isolate}
+  :root[data-motion="premium"] .btn.primary::after{
+    content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);
+    transform:translateX(-120%);animation:pm-sheen 4.5s ease-in-out infinite 1.2s;
+  }
+  @keyframes pm-sheen{0%,70%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+
+  /* tab bar: the selected icon hops, the start button breathes */
+  @keyframes pm-hop{0%{transform:translateY(0) scale(1)}35%{transform:translateY(-5px) scale(1.15)}100%{transform:none}}
+  :root[data-motion="premium"] #tabbar button.on:not(.start) .icn{animation:pm-hop .5s var(--spring)}
+  @keyframes pm-breathe{
+    0%,100%{box-shadow:0 6px 18px -4px color-mix(in srgb,var(--acc) 55%,transparent),0 0 0 0 color-mix(in srgb,var(--acc) 40%,transparent)}
+    50%{box-shadow:0 6px 22px -2px color-mix(in srgb,var(--acc) 70%,transparent),0 0 0 9px color-mix(in srgb,var(--acc) 0%,transparent)}
+  }
+  :root[data-motion="premium"] #tabbar button.start .cir{animation:pm-breathe 2.8s ease-in-out infinite}
+
+  /* sheets and the rest timer arrive on a spring */
+  @keyframes pm-sheet{0%{transform:translateY(100%)}70%{transform:translateY(-1.5%)}100%{transform:none}}
+  :root[data-motion="premium"] .sheet{animation:pm-sheet .55s var(--ease)}
+  :root[data-motion="premium"] .mback{animation:pop-fade .35s ease}
+  @keyframes pm-pop-up{0%{transform:translateY(30px) scale(.94);opacity:0}100%{transform:none;opacity:1}}
+  :root[data-motion="premium"] #timer{animation:pm-pop-up .5s var(--spring)}
+
+  /* logging a set: the tick pops and rings */
+  @keyframes pm-check{0%{transform:scale(.6)}55%{transform:scale(1.22)}100%{transform:scale(1)}}
+  @keyframes pm-ring{from{box-shadow:0 0 0 0 color-mix(in srgb,var(--acc) 60%,transparent)}to{box-shadow:0 0 0 14px transparent}}
+  :root[data-motion="premium"] .chk.on{animation:pm-check .45s var(--spring),pm-ring .7s ease-out}
+  :root[data-motion="premium"] .setrow{transition:opacity .5s var(--ease)}
+  :root[data-motion="premium"] .wday .dot.done{animation:pm-check .5s var(--spring) both}
+
+  /* style picker selection glows */
+  :root[data-motion="premium"] .skin-tile.on{box-shadow:0 0 0 4px var(--acc-soft)}
+
+  /* luxe's gold buttons catch the light */
+  @keyframes pm-gold{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  :root[data-motion="premium"][data-skin="luxe"] .btn.primary{background-size:220% 100%;animation:pm-gold 6s ease-in-out infinite}
+}

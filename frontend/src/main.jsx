@@ -6,6 +6,16 @@ import { useStore } from './store/useStore.js'
 import { startMediaSync } from './lib/media-sync.js'
 import { startNativeKeyboard } from './lib/native-keyboard.js'
 import './index.css'
+import './skins.css'
+
+// iOS home-screen apps sometimes leave position:fixed bars (the tab bar) where the keyboard pushed
+// them after it closes. A 1px scroll nudge makes WebKit re-lay them out.
+// ponytail: workaround for a WebKit bug, drop once iOS fixes it.
+if (/iP(hone|ad|od)/.test(navigator.userAgent)) {
+  const nudge = () => setTimeout(() => { const y = window.scrollY; window.scrollTo(0, y + 1); window.scrollTo(0, y) }, 80)
+  window.addEventListener('focusout', nudge)
+  window.visualViewport?.addEventListener('resize', nudge)
+}
 
 // App.jsx restores per-route scroll itself; the browser's own attempt races it.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
