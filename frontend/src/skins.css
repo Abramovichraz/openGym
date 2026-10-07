@@ -117,7 +117,8 @@
 :root[data-skin="carbon"] .btn.ghost,:root[data-skin="carbon"] .btn.plain{text-transform:none;letter-spacing:0;font-weight:600}
 :root[data-skin="carbon"] .btn.primary{box-shadow:0 0 0 1px color-mix(in srgb,var(--acc) 40%,transparent),0 6px 20px -8px var(--acc)}
 :root[data-skin="carbon"] .card .big{font-weight:900;font-style:italic}
-:root[data-skin="carbon"] #tabbar button.start .cir{border-radius:14px;transform:rotate(45deg)}
+/* rotated, a 52px square is 73px corner to corner and sat on its label; 40px keeps it at 57 */
+:root[data-skin="carbon"] #tabbar button.start .cir{width:40px;height:40px;border-radius:10px;transform:rotate(45deg);margin:6px 0 10px}
 :root[data-skin="carbon"] #tabbar button.start .cir .icn{transform:rotate(-45deg)}
 :root[data-skin="carbon"] #tabbar button.start:active .cir{transform:rotate(45deg) scale(.93)}
 :root[data-skin="carbon"] #tabbar button{text-transform:uppercase;letter-spacing:.06em;font-size:9px;font-weight:700}
@@ -248,4 +249,81 @@
   /* luxe's gold buttons catch the light */
   @keyframes pm-gold{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
   :root[data-motion="premium"][data-skin="luxe"] .btn.primary{background-size:220% 100%;animation:pm-gold 6s ease-in-out infinite}
+
+  /* ---- more motion ---- */
+  /* switches and segmented thumbs overshoot a touch, like iOS */
+  :root[data-motion="premium"] .sw .knob{transition:transform .5s var(--spring),width .2s var(--ease)}
+  :root[data-motion="premium"] .seg-sel{transition:transform .5s var(--spring)}
+  :root[data-motion="premium"] .seg button:active{transform:scale(.94)}
+
+  /* titles wipe in from the side */
+  @keyframes pm-wipe{from{clip-path:inset(0 100% 0 0);opacity:.2;transform:translateX(-8px)}to{clip-path:inset(0 0 0 0);opacity:1;transform:none}}
+  :root[data-motion="premium"] .hdr h1{animation:pm-wipe .7s var(--ease) both .05s}
+  :root[data-motion="premium"] .hdr .sub{animation:pm-rise .6s var(--ease) both .18s}
+
+  /* the week strip: days drop in one by one, today pops */
+  @keyframes pm-drop{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  :root[data-motion="premium"] .wday{animation:pm-drop .45s var(--ease) both}
+  :root[data-motion="premium"] .wday:nth-child(2){animation-delay:35ms}
+  :root[data-motion="premium"] .wday:nth-child(3){animation-delay:70ms}
+  :root[data-motion="premium"] .wday:nth-child(4){animation-delay:105ms}
+  :root[data-motion="premium"] .wday:nth-child(5){animation-delay:140ms}
+  :root[data-motion="premium"] .wday:nth-child(6){animation-delay:175ms}
+  :root[data-motion="premium"] .wday:nth-child(7){animation-delay:210ms}
+  :root[data-motion="premium"] .wday.today .num{animation:pm-check .6s var(--spring) both .3s}
+  :root[data-motion="premium"] .wday:active{transform:scale(.9);transition:transform .1s}
+
+  /* chips ripple in */
+  :root[data-motion="premium"] .chips .chip{animation:pm-rise .45s var(--ease) both}
+  :root[data-motion="premium"] .chips .chip:nth-child(2){animation-delay:30ms}
+  :root[data-motion="premium"] .chips .chip:nth-child(3){animation-delay:60ms}
+  :root[data-motion="premium"] .chips .chip:nth-child(4){animation-delay:90ms}
+  :root[data-motion="premium"] .chips .chip:nth-child(n+5){animation-delay:120ms}
+
+  /* dialogs and toasts land on a spring */
+  @keyframes pm-pop{0%{transform:translate(-50%,-50%) scale(.85);opacity:0}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+  :root[data-motion="premium"] .center{animation:pm-pop .45s var(--spring)}
+  :root[data-motion="premium"] #toast{transition:opacity .3s,transform .5s var(--spring)}
+  :root[data-motion="premium"] #toast:not(.show){transform:translateX(-50%) translateY(24px) scale(.9)}
+
+  /* exercise demos ease into focus */
+  @keyframes pm-focus{from{opacity:0;transform:scale(1.06);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+  :root[data-motion="premium"] .exmedia :is(img,video){animation:pm-focus .6s var(--ease) both}
+  :root[data-motion="premium"] .thumb{animation:pm-focus .5s var(--ease) both}
+
+  /* the gear spins a quarter turn on press, colour swatches bounce */
+  :root[data-motion="premium"] .iconbtn .icn{transition:transform .5s var(--spring)}
+  :root[data-motion="premium"] .iconbtn:active .icn{transform:rotate(-30deg)}
+  :root[data-motion="premium"] .swatch{transition:transform .45s var(--spring)}
+  :root[data-motion="premium"] .swatch:active{transform:scale(.8)}
+  :root[data-motion="premium"] .swatch.on{animation:pm-check .5s var(--spring)}
+
+  /* rest timer: the bar shimmers while it runs, the clock ticks */
+  :root[data-motion="premium"] #timer .bar i{
+    background:linear-gradient(90deg,var(--acc),color-mix(in srgb,var(--acc) 50%,#fff),var(--acc));
+    background-size:200% 100%;animation:pm-gold 2s linear infinite;
+  }
+  @keyframes pm-tick{0%{transform:scale(1)}8%{transform:scale(1.04)}20%{transform:scale(1)}}
+  :root[data-motion="premium"] #timer .t{animation:pm-tick 1s ease-out infinite}
+  :root[data-motion="premium"] #timer.paused .t{animation:none}
+
+  /* a finished set row settles back */
+  :root[data-motion="premium"] .setrow.done{transform:scale(.985);transition:transform .5s var(--spring),opacity .5s var(--ease)}
+
+  /* tab bar: a dot slides under the active tab */
+  :root[data-motion="premium"] #tabbar button:not(.start){position:relative}
+  :root[data-motion="premium"] #tabbar button:not(.start)::after{
+    content:'';position:absolute;bottom:-3px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;
+    background:var(--acc);transform:scale(0);transition:transform .45s var(--spring);
+  }
+  :root[data-motion="premium"] #tabbar button.on:not(.start)::after{transform:scale(1)}
+  :root[data-motion="premium"] #tabbar button:active .icn{transform:scale(.85);transition:transform .1s}
+
+  /* cards further down grow in as they scroll into view (iOS 26+ / scroll-driven animations) */
+  @supports (animation-timeline:view()){
+    @keyframes pm-reveal{from{opacity:.3;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+    :root[data-motion="premium"] #app :is(.card,.sect):nth-of-type(n+4){
+      animation:pm-reveal linear both;animation-timeline:view();animation-range:entry 0% entry 60%;
+    }
+  }
 }
